@@ -70,7 +70,7 @@ export default function Login({navigation}) {
     <View style={[styles.container, specificStyle.specificContainer]}>
 
       { isLoadingToken && 
-        <Text>Carregando...</Text> 
+        <Text>Executando...</Text> 
       }
 
       { !isLoadingToken && 
