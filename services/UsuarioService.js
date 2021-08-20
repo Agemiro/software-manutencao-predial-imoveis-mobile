@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"
+import { Alert } from "react-native"
 import Config from "../util/Config"
 
 class UsuarioService{
@@ -20,7 +21,7 @@ class UsuarioService{
 
     async login(data){
         return axios({
-            url: Config.API_URL + "usuario/login",
+            url: Config.API_URL + "user/login",
             method: "POST",
             timeout: Config.TIMEOUT_REQUEST,
             data: data,
