@@ -5,7 +5,6 @@ import { Text, View } from 'react-native';
 import { Button, Input } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import servicoService from '../services/ServicoService';
 import styles from '../style/MainStyle';
 export default function CadastroServico() {
   const [titulo, setTitulo] = useState(null)

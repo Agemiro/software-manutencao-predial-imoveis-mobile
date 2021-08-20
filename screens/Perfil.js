@@ -21,7 +21,7 @@ export default function Perfil({navigation}) {
 
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Profile!</Text>
+        <Text>Perfil</Text>
         <Button
             icon={
               <Icon
