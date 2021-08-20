@@ -9,9 +9,7 @@ import { TextInputMask } from 'react-native-masked-text';
 import { Button as PaperButton, Provider, Dialog, Paragraph, Portal } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomDialog from '../components/CustomDialog';
-import usuarioService from '../services/UsuarioService';
 import styles from '../style/MainStyle';
-
 
 export default function Cadastro({navigation}) {
 
@@ -117,7 +115,7 @@ export default function Cadastro({navigation}) {
         errorMessage={errorEmail}        
         />
     
-<Input
+      <Input
         placeholder="Nome"
         onChangeText={value => setNome(value)}
         errorMessage={errorNome}

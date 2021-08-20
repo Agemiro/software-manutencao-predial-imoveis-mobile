@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "app-temtudaki-oficial",
-    "slug": "app-temtudaki-oficial",
+    "name": "manutencao_predial",
+    "slug": "manutencao_predial",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
