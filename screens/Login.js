@@ -18,7 +18,7 @@ export default function Login({navigation}) {
   const entrar = () => {
 
     let data = {
-      username: email,
+      email: email,
       password: password
     }
     
