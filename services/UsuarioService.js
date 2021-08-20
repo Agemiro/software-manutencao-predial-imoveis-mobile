@@ -7,7 +7,7 @@ class UsuarioService{
     
     async cadastrar(data){
         return axios({
-            url: Config.API_URL + "usuario/cadastrar",
+            url: Config.API_URL + "user",
             method: "POST",
             timeout: Config.TIMEOUT_REQUEST,
             data: data,
@@ -27,7 +27,6 @@ class UsuarioService{
             data: data,
             headers: Config.HEADER_REQUEST
         }).then((response) => {
-            AsyncStorage.setItem("TOKEN", response.data.access_token)
             return Promise.resolve(response)
         }).catch((error) => {
             return Promise.reject(error)

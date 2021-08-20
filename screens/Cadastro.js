@@ -7,6 +7,7 @@ import { Button, CheckBox, Input, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { TextInputMask } from 'react-native-masked-text';
 import { Button as PaperButton, Provider, Dialog, Paragraph, Portal } from 'react-native-paper';
+import usuarioService from '../services/UsuarioService';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomDialog from '../components/CustomDialog';
 import styles from '../style/MainStyle';
@@ -56,10 +57,10 @@ export default function Cadastro({navigation}) {
       setErrorEmail("Preencha seu e-mail corretamente")
       error = true
     }
-    if (!cpfField.isValid()){
-      setErrorCpf("Preencha seu CPF corretamente")
-      error = true
-    }
+    // if (!cpfField.isValid()){
+    //   setErrorCpf("Preencha seu CPF corretamente")
+    //   error = true
+    // }
     if (telefone == null){
       setErrorTelefone("Preencha seu telefone corretamente")
       error = true
@@ -76,18 +77,20 @@ export default function Cadastro({navigation}) {
         setLoading(true)
         
         let data = {
-          email: email,
           cpf: cpf,
-          nome: nome,
-          telefone: telefone,
-          senha: senha
+          rg: 2345454,
+          name: nome,
+          email: email,
+          fone: telefone,
+          password: senha,
+          job: "Administrador"
         }
         
         usuarioService.cadastrar(data)
         .then((response) => {
           setLoading(false)
-          const titulo = (response.data.status) ? "Sucesso" : "Erro"
-          showDialog(titulo, response.data.mensagem, "SUCESSO")
+          const titulo = (response.data.name) ? "Sucesso" : "Erro"
+          showDialog(titulo, response.data.name + " esta cadastrado!", "SUCESSO")
           //Alert.alert(titulo, response.data.mensagem)          
         })
         .catch((error) => {

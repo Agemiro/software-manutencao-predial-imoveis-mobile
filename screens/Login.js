@@ -5,6 +5,7 @@ import { ActivityIndicator } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import usuarioService from '../services/UsuarioService';
 import styles from '../style/MainStyle';
+import Principal from './Principal';
 
 export default function Login({navigation}) {
 
@@ -20,6 +21,7 @@ export default function Login({navigation}) {
     
     usuarioService.login(data)
     .then((response) => {
+      // Principal(data.email)
       navigation.reset({
         index: 0,
         routes: [{name: "Principal"}]
