@@ -10,6 +10,8 @@ import { Button as PaperButton, Provider, Dialog, Paragraph, Portal } from 'reac
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomDialog from '../components/CustomDialog';
 import styles from '../style/MainStyle';
+import usuarioService from '../services/UsuarioService';
+import { Picker } from 'react-native';
 
 export default function Cadastro({navigation}) {
 
@@ -18,7 +20,6 @@ export default function Cadastro({navigation}) {
   const [cpf, setCpf] = useState(null)
   const [senha, setSenha] = useState(null)
   const [telefone, setTelefone] = useState(null)
-  const [isSelected, setSelected] = useState(false)
   const [errorEmail, setErrorEmail] = useState(null)
   const [errorNome, setErrorNome] = useState(null)
   const [errorCpf, setErrorCpf] = useState(null)
@@ -30,20 +31,10 @@ export default function Cadastro({navigation}) {
   const [titulo, setTitulo] = useState(null)
   const [mensagem, setMensagem] = useState(null)
   const [tipo, setTipo] = useState(null)
+  const [selectedValue, setSelectedValue] = useState(null);
 
   let cpfField = null
   let telefoneField = null
-
-  const showDialog = (titulo, mensagem, tipo) => {
-    setVisibleDialog(true)
-    setTitulo(titulo)
-    setMensagem(mensagem)
-    setTipo(tipo)
-  }
-
-  const hideDialog = (status) => {
-    setVisibleDialog(status)
-  }
   
   const validar = () => {
     let error = false
@@ -56,10 +47,10 @@ export default function Cadastro({navigation}) {
       setErrorEmail("Preencha seu e-mail corretamente")
       error = true
     }
-    if (!cpfField.isValid()){
-      setErrorCpf("Preencha seu CPF corretamente")
-      error = true
-    }
+   // if (!cpfField.isValid()){
+     // setErrorCpf("Preencha seu CPF corretamente")
+    ////  error = true
+    //}
     if (telefone == null){
       setErrorTelefone("Preencha seu telefone corretamente")
       error = true
@@ -86,8 +77,8 @@ export default function Cadastro({navigation}) {
         usuarioService.cadastrar(data)
         .then((response) => {
           setLoading(false)
-          const titulo = (response.data.status) ? "Sucesso" : "Erro"
-          showDialog(titulo, response.data.mensagem, "SUCESSO")
+          //const titulo = (response.data.status) ? "Sucesso" : "Erro"
+         // showDialog(titulo, response.data.mensagem, "SUCESSO")
           //Alert.alert(titulo, response.data.mensagem)          
         })
         .catch((error) => {
@@ -104,7 +95,7 @@ export default function Cadastro({navigation}) {
     style={[styles.container, specificStyle.specificContainer]}
     keyboardVerticalOffset={80}>
       <ScrollView style={{width: "100%"}}>
-      <Text h3>Cadastre-se</Text>
+      <Text h4>Cadastrar Usuário</Text>
       <Input
         placeholder="E-mail"
         onChangeText={value => {
@@ -161,22 +152,25 @@ export default function Cadastro({navigation}) {
     </View>
     <Text style={styles.errorMessage}>{errorTelefone}</Text>
 
+    <View>
+      <Text>   Selecione o cargo/função</Text>
+      <Picker
+        selectedValue={selectedValue}
+        style={{ height: 70, width: 170 }}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+      >
+        <Picker.Item label="Gerente" value="gerente" />
+        <Picker.Item label="Chefe de setor" value="chefe" />
+        <Picker.Item label="Prestador" value="prestador" />
+      </Picker>
+    </View>
+
     <Input
         placeholder="Senha"
         onChangeText={value => setSenha(value)}
         errorMessage={errorSenha}
         secureTextEntry={true}
         />
-            
-    <CheckBox 
-        title="Eu aceito os termos de uso"
-        checkedIcon="check"
-        uncheckedIcon="square-o"
-        checkedColor="green"
-        uncheckedColor="red"
-        checked={isSelected}
-        onPress={() => setSelected(!isSelected)}
-    />
     
     { isLoading && 
       <Text>Carregando...</Text>
@@ -208,11 +202,12 @@ export default function Cadastro({navigation}) {
 
 const specificStyle = StyleSheet.create({
   specificContainer: {
-    backgroundColor: "#fff",
+    backgroundColor: "#b0c4de",
     padding: 10
   },
   button: {
     width: "100%",
-    marginTop: 10
+    marginTop: 10,
+    borderRadius: 5
   }
 })

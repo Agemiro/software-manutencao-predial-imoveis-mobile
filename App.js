@@ -7,12 +7,14 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import Login from './screens/Login';
 import Principal from './screens/Principal';
-import Cadastro from './screens/Cadastro';
+import Cadastro from './screens/CadastroUsuario';
 import CadastroProduto from './screens/CadastroProduto';
 import CadastroServico from './screens/CadastroServico';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Config from './util/Config';
+import CadastroImovel from './screens/CadastroImovel';
+import CadastroSala from './screens/CadastroSala';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +23,9 @@ function MyStack() {
     <Stack.Navigator>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Principal" component={Principal} />
-      <Stack.Screen name="Cadastro" component={Cadastro} />
+      <Stack.Screen name="CadastroUsuario" component={Cadastro} />
+      <Stack.Screen name="CadastroImovel" component={CadastroImovel} />
+      <Stack.Screen name="CadastroSala" component={CadastroSala} />
       <Stack.Screen name="CadastroProduto" component={CadastroProduto} />
       <Stack.Screen name="CadastroServico" component={CadastroServico} />
     </Stack.Navigator>

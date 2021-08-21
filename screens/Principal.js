@@ -29,6 +29,9 @@ export default function Principal() {
           ),
         }}
       />
+      <View>
+      
+      </View>
       <Tab.Screen
         name="Produtos"
         component={Produtos}
@@ -49,6 +52,7 @@ export default function Principal() {
           ),
         }}
       />
+      
       <Tab.Screen
         name="Cadastrar"
         component={Cadastrar}

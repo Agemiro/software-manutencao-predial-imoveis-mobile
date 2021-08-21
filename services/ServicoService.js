@@ -5,7 +5,6 @@ import Config from "../util/Config"
 class ServicoService{
     
     async cadastrar(data){
-        let token = await AsyncStorage.getItem("TOKEN")
         return axios({
             url: Config.API_URL + "servico/cadastrar",
             method: "POST",
