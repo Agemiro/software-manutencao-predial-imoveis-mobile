@@ -1,12 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"
+import { Alert } from "react-native"
 import Config from "../util/Config"
 
 class UsuarioService{
     
     async cadastrar(data){
         return axios({
-            url: Config.API_URL + "usuario/cadastrar",
+            url: Config.API_URL + "user",
             method: "POST",
             timeout: Config.TIMEOUT_REQUEST,
             data: data,
