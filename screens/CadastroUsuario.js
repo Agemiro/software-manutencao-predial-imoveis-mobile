@@ -11,7 +11,6 @@ import usuarioService from '../services/UsuarioService';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import CustomDialog from '../components/CustomDialog';
 import styles from '../style/MainStyle';
-import usuarioService from '../services/UsuarioService';
 import { Picker } from 'react-native';
 
 export default function Cadastro({navigation}) {

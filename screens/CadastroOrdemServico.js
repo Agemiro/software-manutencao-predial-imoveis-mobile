@@ -4,7 +4,6 @@ import { Platform } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native';
 import { StyleSheet, View } from 'react-native';
 import { Button, CheckBox, Input, Text } from 'react-native-elements';
-import { TextInputMask } from 'react-native-masked-text';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
 
@@ -14,37 +13,20 @@ export default function CadastroImovel({navigation}) {
   const [errorTitulo, setErrorTitulo] = useState(null)
   const [descricao, setDescricao] = useState(null)
   const [errorDescricao, setErrorDescricao] = useState(null)
-  const [orcamento, setOrcamento] = useState(null)
-  const [errorOrcamento, setErrorOrcamento] = useState(null)
-  const [prazo, setPrazo] = useState(null)
-  const [errorPrazo, setErrorPrazo] = useState(null)
   const [isLoading, setLoading] = useState(false)
   
   let prazoField = null
   const validar = () => {
     let error = false
-    setErrorOrcamento(null)
-    setErrorTitulo(null)
-    setErrorDescricao(null)
 
     if (titulo == null){
-        setErrorTitulo("Preencha o título do servico")
+        setErrorTitulo("Preencha o titulo da ordem servico")
         error = true
     }
 
     if (descricao == null){
-        setErrorDescricao("Descreva o serviço")
+        setErrorDescricao("Descrição do serviço a ser realizado ")
         error = true
-    }
-
-    if (!prazoField.isValid()) {
-      setErrorPrazo("Adicione a data limite para o término do servico")
-      error = true
-    }
-
-    if (orcamento == null) {
-      setErrorOrcamento("Adicione orçamento do servico")
-      error = true
     }
     return !error //Retorna false
   }
@@ -55,17 +37,13 @@ export default function CadastroImovel({navigation}) {
         
         let data = {
           title: titulo,
-          description: descricao,
-          budget: orcamento,
-          term: prazo,
-          state: "Iniciado",
-          manager: 1 //id do gerente
+          description: descricao
         }  
-        Alert.alert("Serviço cadastrado: "+data.title)
-        // navigation.reset({
-        //   index: 0,
-        //   routes: [{name: "Principal"}]
-        // })
+        Alert.alert("Ordem de Serviço cadastrado: "+data.titulo)
+        navigation.reset({
+          index: 0,
+          routes: [{name: "Principal"}]
+        })
         setLoading(false)
       }
   }
@@ -76,43 +54,17 @@ export default function CadastroImovel({navigation}) {
     style={[styles.container, specificStyle.specificContainer]}>
 
         <ScrollView style={{width: "100%"}}>
-            <Text h4>Cadastrar Serviço</Text>
+            <Text h4>Cadastrar Ordem de Serviço</Text>
             <Input
                 placeholder="Digite o título"
                 onChangeText={value => setTitulo(value)}
                 errorMessage={errorTitulo}
             />
             <Input
-                placeholder="Descrição do servico"
+                placeholder="Descrição da ordem servico"
                 onChangeText={value => setDescricao(value)}
                 errorMessage={errorDescricao}
             />
-            <Input
-                placeholder="Digite orçamento do serviço"
-                keyboardType="number-pad"
-                onChangeText={value => setOrcamento(value)}
-                errorMessage={errorOrcamento}
-            />
-            <View style={styles.containerMask}>
-            <TextInputMask 
-                placeholder="Prazo Limite"
-                type= {"datetime"}
-                value={prazo}
-                options={{
-                  format: 'DD/MM/YYYY'
-                }} 
-                onChangeText={value => {
-                    setPrazo(value)
-                    setErrorPrazo(null)
-                }}
-                keyboardType="number-pad"
-                returnKeyType="done"      
-                style={styles.maskedInput}
-                ref={(ref) => prazoField = ref}
-            />
-            </View>
-            <Text style={styles.errorMessage}>{errorPrazo}</Text>
-            
     
     { isLoading && 
       <Text>Carregando...</Text>

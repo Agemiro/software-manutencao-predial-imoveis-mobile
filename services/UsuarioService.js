@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"
-import { Alert } from "react-native"
 import Config from "../util/Config"
 
 class UsuarioService{
@@ -31,6 +30,16 @@ class UsuarioService{
         }).catch((error) => {
             return Promise.reject(error)
         })
+    }
+
+    async getUser() {
+        let user = await AsyncStorage.getItem("USER");
+        user = JSON.parse(user);
+        return user;
+    }
+
+    async setUser(user) {
+        AsyncStorage.setItem("USER", JSON.stringify(user))
     }
 
 }

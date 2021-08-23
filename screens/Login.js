@@ -4,7 +4,7 @@ import { Button, Input, Text } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import usuarioService from '../services/UsuarioService';
 import styles from '../style/MainStyle';
-import Principal from './Principal';
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function Login({navigation}) {
 
@@ -17,28 +17,27 @@ export default function Login({navigation}) {
       email: email,
       password: password
     }
-    
-    usuarioService.login(data)
-    .then((response) => {
-      Principal(data.name);
+    // usuarioService.login(data)
+    // .then((response) => {
+    //   Principal(data.name);
+    AsyncStorage.setItem("USER", JSON.stringify(data));
       navigation.reset({
         index: 0,
         routes: [{name: "Principal"}]
       })
-    })
-    .catch((error) => {
-      Alert.alert("Usuário não existe")
-    })
+    // })
+    // .catch((error) => {
+    //   Alert.alert("Usuário não existe")
+    // })
   }
 
   const cadastrar = () => {
-    navigation.navigate("CadastroImovel")
+    navigation.navigate("CadastroServico")
   }
 
   return (
-    
     <View style={[styles.container, specificStyle.specificContainer]}>
-
+          <Image style={ {marginTop: 100, width: 300, height:100, marginBottom:50}} source={require('../src/assets/logo.png')} />
           <Input
             placeholder="Digite seu email"
             leftIcon={{ type: 'font-awesome', name: 'envelope' }}
@@ -88,7 +87,8 @@ const specificStyle = StyleSheet.create({
     backgroundColor: "#b0c4de", //cor de fundo da tela de login
     borderColor: "#fffafa",
     borderWidth: 3,
-    borderStyle: "solid"
+    borderStyle: "solid",
+    justifyContent: 'flex-start'
   },
   button: {
     textAlign: 'center',
@@ -97,5 +97,5 @@ const specificStyle = StyleSheet.create({
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 })

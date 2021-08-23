@@ -29,9 +29,6 @@ export default function Principal() {
           ),
         }}
       />
-      <View>
-      
-      </View>
       <Tab.Screen
         name="Produtos"
         component={Produtos}

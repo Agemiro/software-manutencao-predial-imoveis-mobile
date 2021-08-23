@@ -10,11 +10,14 @@ import Principal from './screens/Principal';
 import Cadastro from './screens/CadastroUsuario';
 import CadastroProduto from './screens/CadastroProduto';
 import CadastroServico from './screens/CadastroServico';
+import CadastroEmpresa from './screens/CadastroEmpresa';
+import CadastroFornecedor from './screens/CadastroFornecedor';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Config from './util/Config';
 import CadastroImovel from './screens/CadastroImovel';
 import CadastroSala from './screens/CadastroSala';
+import CadastroOrdemServico from './screens/CadastroOrdemServico';
 
 const Stack = createStackNavigator();
 
@@ -28,6 +31,9 @@ function MyStack() {
       <Stack.Screen name="CadastroSala" component={CadastroSala} />
       <Stack.Screen name="CadastroProduto" component={CadastroProduto} />
       <Stack.Screen name="CadastroServico" component={CadastroServico} />
+      <Stack.Screen name="CadastroEmpresa" component={CadastroEmpresa} />
+      <Stack.Screen name="CadastroFornecedor" component={CadastroFornecedor} />
+      <Stack.Screen name="CadastroOrdemServico" component={CadastroOrdemServico} />
     </Stack.Navigator>
   );
 }
