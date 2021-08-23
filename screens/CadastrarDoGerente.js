@@ -8,11 +8,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 export default function CadastrarDoGerente({navigation}) {
 
     function cadastrarServico(){
-      navigation.navigate("CadastroServico")
+      navigation.navigate("Cadastro Servico")
     }
 
     function cadastrarProduto(){
-      navigation.navigate("CadastroProduto")
+      navigation.navigate("Cadastro Produto")
     }
 
     return (

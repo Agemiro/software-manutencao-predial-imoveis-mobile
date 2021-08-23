@@ -3,10 +3,10 @@ import { Text, View, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import usuarioService from '../services/UsuarioService';
 import { Alert } from 'react-native';
 
 export default function Perfil({navigation}) {
-
     const logout = (navigation) => {
        // AsyncStorage.setItem("TOKEN","").then(() => {
             navigation.reset({

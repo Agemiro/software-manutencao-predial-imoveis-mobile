@@ -16,11 +16,11 @@ export default function CadastrarDoADM({navigation}) {
     }
 
     function cadastrarFornecedor(){
-      //navigation.navigate("Cadastro Produto")
+      navigation.navigate("Cadastro Fornecedor")
     }
 
     function cadastrarEmpresa(){
-      //navigation.navigate("Cadastro Produto")
+      navigation.navigate("Cadastro Empresa")
     }
 
     return (

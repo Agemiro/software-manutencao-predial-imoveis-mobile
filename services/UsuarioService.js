@@ -1,5 +1,4 @@
-//import AsyncStorage from "@react-native-async-storage/async-storage"
-//import axios from "axios"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 class UsuarioService{
     
@@ -44,6 +43,16 @@ class UsuarioService{
         else if(data === "G"){
             return "Principal Gerente";
         }
+    }
+
+    async getUser() {
+        let user = await AsyncStorage.getItem("USER");
+        user = JSON.parse(user);
+        return user;
+    }
+
+    async setUser(user) {
+        AsyncStorage.setItem("USER", JSON.stringify(user))
     }
 
 }

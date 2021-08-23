@@ -4,7 +4,6 @@ import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import usuarioService from '../services/UsuarioService';
 import styles from '../style/MainStyle';
-import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Login({navigation}) {
 
@@ -41,12 +40,8 @@ export default function Login({navigation}) {
   }*/
 
   return (
-    
     <View style={[styles.container, specificStyle.specificContainer]}>
-       <Image 
-        source = {require('../src/assets/logo.png')}
-      />
-
+          <Image style={ {marginTop: 100, width: 300, height:100, marginBottom:50}} source={require('../src/assets/logo.png')} />
           <Input
             placeholder="Digite seu email"
             leftIcon={{ type: 'font-awesome', name: 'envelope' }}
@@ -85,12 +80,14 @@ const specificStyle = StyleSheet.create({
     borderColor: "#fffafa",
     borderWidth: 3,
     borderStyle: "solid",
+    justifyContent: 'flex-start',
     padding: 10
   },
   button: {
       marginTop: '10%',
       width: '100%',
       borderRadius: 5,
-      backgroundColor: "#008000"
+      backgroundColor: "#008000",
+      textAlign: 'center'
   }
 })
