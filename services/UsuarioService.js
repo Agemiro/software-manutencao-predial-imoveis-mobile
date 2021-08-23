@@ -46,10 +46,6 @@ class UsuarioService{
         }
     }
 
-    usuarioLogado(data){
-        return data;
-    }
-
 }
 
 const usuarioService = new UsuarioService()
