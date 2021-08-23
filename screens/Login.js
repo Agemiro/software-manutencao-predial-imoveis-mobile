@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, View, Image } from 'react-native';
-import { Button, Input, Text } from 'react-native-elements';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, View, Image, ImageBackground } from 'react-native';
+import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import usuarioService from '../services/UsuarioService';
 import styles from '../style/MainStyle';
-import Principal from './Principal';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Login({navigation}) {
 
@@ -18,26 +18,34 @@ export default function Login({navigation}) {
       password: password
     }
     
-    usuarioService.login(data)
+    /*usuarioService.login(data)
     .then((response) => {
-      Principal(data.name);
-      navigation.reset({
-        index: 0,
-        routes: [{name: "Principal"}]
-      })
-    })
+      Principal(data.name);*/
+      let telaCargo = usuarioService.retornaTipoCargo(data.email);
+      if(telaCargo != null){
+        navigation.reset({
+          index: 0,
+          routes: [{name: telaCargo}]
+        })
+      }else{
+        Alert.alert("Usuário não existe")
+      }
+   /* })
     .catch((error) => {
       Alert.alert("Usuário não existe")
-    })
+    })*/
   }
 
-  const cadastrar = () => {
-    navigation.navigate("CadastroImovel")
-  }
+  /*const cadastrar = () => {
+    navigation.navigate("CadastroUsuario")
+  }*/
 
   return (
     
     <View style={[styles.container, specificStyle.specificContainer]}>
+       <Image 
+        source = {require('../src/assets/logo.png')}
+      />
 
           <Input
             placeholder="Digite seu email"
@@ -64,19 +72,6 @@ export default function Login({navigation}) {
               buttonStyle={specificStyle.button}
               onPress={() => entrar()}
             />
-          
-          <Button
-            icon={
-              <Icon
-                name="user"
-                size={15}
-                color="white"
-              />
-            }
-            title="Cadastrar"
-            buttonStyle={specificStyle.button}
-            onPress={() => cadastrar()}
-          />
     </View>
  
   );
@@ -85,17 +80,17 @@ export default function Login({navigation}) {
 //estilo especifico para a tela de login
 const specificStyle = StyleSheet.create({
   specificContainer: {
+    flex: 1,
     backgroundColor: "#b0c4de", //cor de fundo da tela de login
     borderColor: "#fffafa",
     borderWidth: 3,
-    borderStyle: "solid"
+    borderStyle: "solid",
+    padding: 10
   },
   button: {
-    textAlign: 'center',
-    width: "100%",
-    marginTop: 10,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
+      marginTop: '10%',
+      width: '100%',
+      borderRadius: 5,
+      backgroundColor: "#008000"
   }
 })

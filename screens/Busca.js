@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 
 export default function Busca() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#b0c4de"}}>
         <Text>Tela de busca de produtos e serviços</Text>
       </View>
     );
