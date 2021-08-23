@@ -3,7 +3,6 @@ import { Text, View } from 'react-native';
 import usuarioService from '../services/UsuarioService';
 
 export default function Busca() {
-  test();
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Tela de busca de produtos e serviços</Text>

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { Platform } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native';
-import { StyleSheet, View } from 'react-native';
-import { Button, CheckBox, Input, Text } from 'react-native-elements';
+import { StyleSheet } from 'react-native';
+import { Button, Input, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
 
@@ -38,10 +38,10 @@ export default function CadastroSala({navigation}) {
           andarSala: andar,
           descricaoSala: descricao
         }
-        Alert.alert("Sala cadastrada! "+data.nome) 
+        Alert.alert("Sala cadastrada!") 
         navigation.reset({
             index: 0,
-            routes: [{name: "Principal"}]
+            routes: [{name: "Principal ADM"}]
           })   
         setLoading(false)
       }
@@ -55,10 +55,10 @@ export default function CadastroSala({navigation}) {
           andarSala: andar,
           descricaoSala: descricao
         }
-        Alert.alert("Sala cadastrada! "+data.nome)   
+        Alert.alert("Sala cadastrada!")   
         navigation.reset({
             index: 0,
-            routes: [{name: "CadastroSala"}]
+            routes: [{name: "Cadastro Sala"}]
         }) 
         setLoading(false)
       }

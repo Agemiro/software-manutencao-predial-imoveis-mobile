@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Alert, StyleSheet, View, Image } from 'react-native';
-import { Button, Input, Text } from 'react-native-elements';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, View, Image, ImageBackground } from 'react-native';
+import { Button, Input } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import usuarioService from '../services/UsuarioService';
 import styles from '../style/MainStyle';
-import AsyncStorage from "@react-native-async-storage/async-storage"
 
 export default function Login({navigation}) {
 
@@ -17,23 +16,28 @@ export default function Login({navigation}) {
       email: email,
       password: password
     }
-    // usuarioService.login(data)
-    // .then((response) => {
-    //   Principal(data.name);
-    AsyncStorage.setItem("USER", JSON.stringify(data));
-      navigation.reset({
-        index: 0,
-        routes: [{name: "Principal"}]
-      })
-    // })
-    // .catch((error) => {
-    //   Alert.alert("Usuário não existe")
-    // })
+    
+    /*usuarioService.login(data)
+    .then((response) => {
+      Principal(data.name);*/
+      let telaCargo = usuarioService.retornaTipoCargo(data.email);
+      if(telaCargo != null){
+        navigation.reset({
+          index: 0,
+          routes: [{name: telaCargo}]
+        })
+      }else{
+        Alert.alert("Usuário não existe")
+      }
+   /* })
+    .catch((error) => {
+      Alert.alert("Usuário não existe")
+    })*/
   }
 
-  const cadastrar = () => {
-    navigation.navigate("CadastroServico")
-  }
+  /*const cadastrar = () => {
+    navigation.navigate("CadastroUsuario")
+  }*/
 
   return (
     <View style={[styles.container, specificStyle.specificContainer]}>
@@ -63,19 +67,6 @@ export default function Login({navigation}) {
               buttonStyle={specificStyle.button}
               onPress={() => entrar()}
             />
-          
-          <Button
-            icon={
-              <Icon
-                name="user"
-                size={15}
-                color="white"
-              />
-            }
-            title="Cadastrar"
-            buttonStyle={specificStyle.button}
-            onPress={() => cadastrar()}
-          />
     </View>
  
   );
@@ -84,18 +75,19 @@ export default function Login({navigation}) {
 //estilo especifico para a tela de login
 const specificStyle = StyleSheet.create({
   specificContainer: {
+    flex: 1,
     backgroundColor: "#b0c4de", //cor de fundo da tela de login
     borderColor: "#fffafa",
     borderWidth: 3,
     borderStyle: "solid",
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    padding: 10
   },
   button: {
-    textAlign: 'center',
-    width: "100%",
-    marginTop: 10,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+      marginTop: '10%',
+      width: '100%',
+      borderRadius: 5,
+      backgroundColor: "#008000",
+      textAlign: 'center'
+  }
 })

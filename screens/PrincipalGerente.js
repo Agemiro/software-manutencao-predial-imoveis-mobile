@@ -1,49 +1,29 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Perfil from './Perfil';
-import Busca from './Busca';
 import Produtos from './Produtos';
-import Servicos from './Servicos';
-import Cadastrar from './Cadastrar';
+import OrdemServicos from './OrdemServicos';
+import CadastrarDoGerente from './CadastrarDoGerente';
 
 const Tab = createBottomTabNavigator();
 
-export default function Principal() {
+export default function PrincipalGerente({navigation}) {
+
   return (
+    
     <Tab.Navigator
-      initialRouteName="Busca"
       tabBarOptions={{
-        activeTintColor: '#e91e63',
+        activeTintColor: '#000080',
       }}
+   
     >
       <Tab.Screen
-        name="Busca"
-        component={Busca}
+        name="OrdemServiços"
+        component={OrdemServicos}
         options={{
-          tabBarLabel: 'Buscar',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account-search" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Produtos"
-        component={Produtos}
-        options={{
-          tabBarLabel: 'Produtos',
-          tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="shopping" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Serviços"
-        component={Servicos}
-        options={{
-          tabBarLabel: 'Serviços',
+          tabBarLabel: 'Ordem de Serviços',
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="human-greeting" color={color} size={size} />
           ),
@@ -51,8 +31,8 @@ export default function Principal() {
       />
       
       <Tab.Screen
-        name="Cadastrar"
-        component={Cadastrar}
+        name="CadastrarDoGerente"
+        component={CadastrarDoGerente}
         options={{
           tabBarLabel: 'Cadastrar',
           tabBarIcon: ({ color, size }) => (
@@ -71,6 +51,7 @@ export default function Principal() {
         }}
       />
     </Tab.Navigator>
+
   );
 
 }

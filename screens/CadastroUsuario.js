@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
 import { Platform } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { Button, CheckBox, Input, Text } from 'react-native-elements';
+import { Button, Input, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { TextInputMask } from 'react-native-masked-text';
-import { Button as PaperButton, Provider, Dialog, Paragraph, Portal } from 'react-native-paper';
 import usuarioService from '../services/UsuarioService';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import CustomDialog from '../components/CustomDialog';
 import styles from '../style/MainStyle';
 import { Picker } from 'react-native';
 
@@ -27,10 +24,6 @@ export default function Cadastro({navigation}) {
   const [errorSenha, setErrorSenha] = useState(null)
   const [isLoading, setLoading] = useState(false)
 
-  const [visibleDialog, setVisibleDialog] = useState(false);
-  const [titulo, setTitulo] = useState(null)
-  const [mensagem, setMensagem] = useState(null)
-  const [tipo, setTipo] = useState(null)
   const [selectedValue, setSelectedValue] = useState(null);
 
   let cpfField = null
@@ -76,7 +69,7 @@ export default function Cadastro({navigation}) {
           job: "Administrador"
         }
         
-        usuarioService.cadastrar(data)
+      /*  usuarioService.cadastrar(data)
         .then((response) => {
           setLoading(false)
           //const titulo = (response.data.status) ? "Sucesso" : "Erro"
@@ -87,7 +80,7 @@ export default function Cadastro({navigation}) {
           setLoading(false)
           showDialog("Erro","Houve um erro inesperado", "ERRO")
           //Alert.alert("Erro", "Houve um erro inesperado")
-        })
+        })*/
       }
   }
 
@@ -192,11 +185,6 @@ export default function Cadastro({navigation}) {
         onPress={() => salvar()}
       />
     }
-
-    { visibleDialog && 
-      <CustomDialog titulo={titulo} mensagem={mensagem} tipo={tipo} visible={visibleDialog} onClose={hideDialog}></CustomDialog>
-    }
-
       </ScrollView>
     </KeyboardAvoidingView>
   );

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Alert } from 'react-native';
 import { Platform } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native';
-import { StyleSheet, View } from 'react-native';
-import { Button, CheckBox, Input, Text } from 'react-native-elements';
+import { StyleSheet } from 'react-native';
+import { Button, Input, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
 
@@ -39,10 +39,10 @@ export default function CadastroImovel({navigation}) {
         let data = {
           nome: nome
         }  
-        Alert.alert("Imóvel cadastrado! "+data.nome)
+        Alert.alert("Imóvel cadastrado! Agora é a vez da sala(s).")
         navigation.reset({
           index: 0,
-          routes: [{name: "CadastroSala"}]
+          routes: [{name: "Cadastro Sala"}]
         })
         setLoading(false)
       }

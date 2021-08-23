@@ -3,19 +3,23 @@ import { Text, View } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../style/MainStyle';
-export default function Cadastrar({navigation}) {
+import { ScrollView } from 'react-native-gesture-handler';
+
+export default function CadastrarDoGerente({navigation}) {
 
     function cadastrarServico(){
-      navigation.navigate("CadastroServico")
+      navigation.navigate("Cadastro Servico")
     }
 
     function cadastrarProduto(){
-      navigation.navigate("CadastroProduto")
+      navigation.navigate("Cadastro Produto")
     }
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>O que você quer cadastrar?</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: "#b0c4de" }}>
+        <ScrollView style={{width: "100%"}}>
+        <Text>O que deseja cadastrar?</Text>
+      
         <Button
             icon={
               <Icon
@@ -24,7 +28,7 @@ export default function Cadastrar({navigation}) {
                 color="white"
               />
             }
-            style={styles.button}
+            buttonStyle={styles.button}
             title=" Cadastrar serviço"
             onPress={() => cadastrarServico()}
           />
@@ -37,9 +41,10 @@ export default function Cadastrar({navigation}) {
               />
             }
             title=" Cadastrar produto"
-            style={styles.button}
+            buttonStyle={styles.button}
             onPress={() => cadastrarProduto()}
           />
+        </ScrollView>
       </View>
     );
   }
