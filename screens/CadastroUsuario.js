@@ -24,7 +24,7 @@ export default function Cadastro({navigation}) {
   const [errorSenha, setErrorSenha] = useState(null)
   const [isLoading, setLoading] = useState(false)
 
-  const [selectedValue, setSelectedValue] = useState(null);
+  const [selectedValue, setSelectedValue] = useState("Gerente");
 
   let cpfField = null
   let telefoneField = null
@@ -58,29 +58,29 @@ export default function Cadastro({navigation}) {
   const salvar = () => {
       if (validar()){
         setLoading(true)
-        
+        console.log(selectedValue);
         let data = {
           cpf: cpf,
-          rg: 2345454,
           name: nome,
           email: email,
           fone: telefone,
           password: senha,
-          job: "Administrador"
+          job: selectedValue
         }
         
-      /*  usuarioService.cadastrar(data)
+        usuarioService.cadastrar(data)
         .then((response) => {
-          setLoading(false)
-          //const titulo = (response.data.status) ? "Sucesso" : "Erro"
-         // showDialog(titulo, response.data.mensagem, "SUCESSO")
-          //Alert.alert(titulo, response.data.mensagem)          
+          const titulo = (response.data.cpf) ? "Cadastro realizado com sucesso" : "Erro ao cadastrar"
+          alert(titulo, response.data.mensagem)  
+          navigation.reset({
+            index: 0,
+            routes: [{name: "Principal ADM"}]
+          })        
         })
         .catch((error) => {
-          setLoading(false)
-          showDialog("Erro","Houve um erro inesperado", "ERRO")
-          //Alert.alert("Erro", "Houve um erro inesperado")
-        })*/
+          console.log(error);     
+        })
+        setLoading(false);
       }
   }
 
@@ -154,9 +154,9 @@ export default function Cadastro({navigation}) {
         style={{ height: 70, width: 170 }}
         onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
       >
-        <Picker.Item label="Gerente" value="gerente" />
-        <Picker.Item label="Chefe de setor" value="chefe" />
-        <Picker.Item label="Prestador" value="prestador" />
+        <Picker.Item label="Gerente" value="Gerente" />
+        <Picker.Item label="Chefe de Setor" value="Chefe de Setor" />
+        <Picker.Item label="Prestador" value="Prestador" />
       </Picker>
     </View>
 

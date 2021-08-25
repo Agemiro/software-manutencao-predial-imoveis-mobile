@@ -6,6 +6,9 @@ import { StyleSheet } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
+import salaService from '../services/SalaService';
+
+let imovel = null;
 
 export default function CadastroSala({navigation}) {
 
@@ -31,37 +34,53 @@ export default function CadastroSala({navigation}) {
   }
 
   const salvar = () => {
-      if (validar()){
-        setLoading(true)
+    try {
+      persist();
+    } catch (error) {
+      console.log(error);
+    }
+    navigation.reset({
+      index: 0,
+      routes: [{name: "Principal ADM"}]
+    })   
+  }
 
-        let data = {
-          andarSala: andar,
-          descricaoSala: descricao
-        }
-        Alert.alert("Sala cadastrada!") 
-        navigation.reset({
-            index: 0,
-            routes: [{name: "Principal ADM"}]
-          })   
-        setLoading(false)
+  const persist = () => {
+    if (validar()){
+      setLoading(true)
+
+      let data = {
+        floor: andar,
+        description: descricao,
+        immobile: imovel
       }
+      salaService.cadastrar(data)
+      .then((response) => {
+          const titulo = (response.data.id) ? "Sala adicionada com sucesso" : "Erro ao cadastrar a sala"
+          alert(titulo)  
+      })
+      .catch((error) => {
+          // showDialog("Erro","Houve um erro inesperado", "ERRO")
+          console.log(error); 
+          throw "Nao foi possivel persistir as informacoes da sala";    
+      })
+
+      setLoading(false)
+    } else {
+      throw "Nao foi possivel validar os campos"
+    }
   }
 
   const adicionarNovaSala = () => {
-    if (validar()){
-        setLoading(true)
-
-        let data = {
-          andarSala: andar,
-          descricaoSala: descricao
-        }
-        Alert.alert("Sala cadastrada!")   
-        navigation.reset({
-            index: 0,
-            routes: [{name: "Cadastro Sala"}]
-        }) 
-        setLoading(false)
-      }
+    try {
+      persist();
+    } catch (error) {
+      console.log(error);
+    }
+    navigation.reset({
+      index: 0,
+      routes: [{name: "Cadastro Sala"}]
+    }) 
   }
 
   return (
@@ -70,7 +89,9 @@ export default function CadastroSala({navigation}) {
     style={[styles.container, specificStyle.specificContainer]}>
 
         <ScrollView style={{width: "100%"}}>
-            <Text h4>Cadastrar Sala(s) do Imóvel</Text>
+            <Text h4 style={{paddingBottom:20}}>Cadastrar Sala(s) do Imóvel</Text>
+            <Text h4 style={{paddingBottom:5, color:'#000080'}}>Nome do Imóvel: {imovel.name}</Text>
+            <Text h4 style={{paddingBottom:30, color:'#000080'}}>Endereço do Imóvel: {imovel.address}</Text>
             <Input
                 placeholder="Digite o número do andar"
                 onChangeText={value => setAndar(value)}
@@ -123,3 +144,7 @@ const specificStyle = StyleSheet.create({
     backgroundColor: "#008000"
   }
 })
+
+export function setImovel(data) {
+  imovel = data;
+}

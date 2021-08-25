@@ -11,9 +11,13 @@ import CadastroProduto from './screens/CadastroProduto';
 import CadastroServico from './screens/CadastroServico';
 import CadastroImovel from './screens/CadastroImovel';
 import CadastroSala from './screens/CadastroSala';
+import Notifica from './screens/Notifica';
 import CadastroEmpresa from './screens/CadastroEmpresa';
 import CadastroFornecedor from './screens/CadastroFornecedor';
 import CadastroOrdemServico from './screens/CadastroOrdemServico';
+import OrdemServicos from './screens/OrdemServicos';
+import Prestador from './screens/Prestadores';
+import Estoque from './screens/Estoque';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +35,11 @@ function MyStack() {
       <Stack.Screen name="Cadastro Produto" component={CadastroProduto} />
       <Stack.Screen name="Cadastro Servico" component={CadastroServico} />
       <Stack.Screen name="Cadastro Empresa" component={CadastroEmpresa} />
+      <Stack.Screen name="Notifica" component={Notifica} />
+      <Stack.Screen name="OrdemServicos" component={OrdemServicos} />
+      <Stack.Screen name="Prestador" component={Prestador} />
+      <Stack.Screen name="Estoque" component={Estoque} />
+      {/* <Stack.Screen name="Material da Sala" component={ProdutoSala} /> */}
       <Stack.Screen name="Cadastro Fornecedor" component={CadastroFornecedor} />
       <Stack.Screen name="Cadastro Ordem de Servico" component={CadastroOrdemServico} />
 

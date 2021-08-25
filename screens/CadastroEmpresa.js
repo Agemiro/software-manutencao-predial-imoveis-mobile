@@ -7,7 +7,7 @@ import { TextInputMask } from 'react-native-masked-text';
 import { Button, CheckBox, Input, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
-
+import empresaService from '../services/EmpresaService';
 
 export default function CadastroEmpresa({navigation}) {
     
@@ -39,13 +39,21 @@ export default function CadastroEmpresa({navigation}) {
             
             let data = {
                 name: nome,
-                cnpj: cnpj
-            }  
-            Alert.alert("Empresa " + data.nome + " cadastrada! ")
-            navigation.reset({
-            index: 0,
-            routes: [{name: "Principal"}]
+                cnpj: cnpj.toString()
+            }
+            empresaService.cadastrar(data)
+            .then((response) => {
+                const titulo = (response.data.cnpj) ? "Cadastro realizado com sucesso" : "Erro ao cadastrar"
+                alert(titulo, response.data.mensagem)  
             })
+            .catch((error) => {
+                // showDialog("Erro","Houve um erro inesperado", "ERRO")
+                console.log(error);     
+            })
+            navigation.reset({
+                index: 0,
+                routes: [{name: "Principal ADM"}]
+            })        
             setLoading(false)
         }
     }

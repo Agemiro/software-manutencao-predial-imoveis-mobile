@@ -6,6 +6,8 @@ import { StyleSheet } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
+import imovelService from '../services/ImovelService';
+import { setImovel } from './CadastroSala';
 
 export default function CadastroImovel({navigation}) {
 
@@ -17,8 +19,8 @@ export default function CadastroImovel({navigation}) {
 
   const validar = () => {
     let error = false
-    //setErrorNome(null)
-    //setErrorEndereco(null)
+    setErrorNome(null)
+    setErrorEndereco(null)
 
     if (nome == null){
         setErrorNome("Preencha o nome do imóvel")
@@ -37,13 +39,26 @@ export default function CadastroImovel({navigation}) {
         setLoading(true)
         
         let data = {
-          nome: nome
+          name: nome,
+          address: endereco
         }  
-        Alert.alert("Imóvel cadastrado! Agora é a vez da sala(s).")
-        navigation.reset({
-          index: 0,
-          routes: [{name: "Cadastro Sala"}]
+        imovelService.cadastrar(data)
+        .then((response) => {
+          const titulo = (response.data.id) ? "Imóvel cadastrado! Agora é a vez da sala(s)." : "Erro ao cadastrar"
+          alert(titulo, response.data.mensagem)  
+          if(response.data.id){
+            setImovel(response.data)
+            navigation.reset({
+              index: 0,
+              routes: [{name: "Cadastro Sala"}]
+            })
+          }
         })
+        .catch((error) => {
+            // showDialog("Erro","Houve um erro inesperado", "ERRO")
+            console.log(error);     
+        })
+        
         setLoading(false)
       }
   }

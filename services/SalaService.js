@@ -1,12 +1,11 @@
-import AsyncStorage from "@react-native-async-storage/async-storage"
-import axios from "axios"
+import axios from "axios";
 import Config from "../util/Config"
 
-class ServicoService{
+class SalaService{
     
     async cadastrar(data){
         return axios({
-            url: Config.API_URL + "service",
+            url: Config.API_URL + "room",
             method: "POST",
             timeout: Config.TIMEOUT_REQUEST,
             data: data,
@@ -18,13 +17,13 @@ class ServicoService{
         })
     }
 
-    async obterNotificacoes() {
+    async obterSalas() {
         return await axios({
-            url: Config.API_URL + "service/notifications",
+            url: Config.API_URL + "room",
             method: "GET",
             timeout: Config.TIMEOUT_REQUEST
         }).then((response) => {
-            console.log(response.data);
+            // console.log(response.data);
             return Promise.resolve(response)
         }).catch((error) => {
             return Promise.resolve(error)
@@ -32,5 +31,5 @@ class ServicoService{
     }
 }
 
-const servicoService = new ServicoService()
-export default servicoService
+const salaService = new SalaService();
+export default salaService;

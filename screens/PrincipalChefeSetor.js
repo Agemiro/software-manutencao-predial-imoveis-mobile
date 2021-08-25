@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Perfil from './Perfil';
-import OrdemServicos from './OrdemServicos';
+import Salas from './Salas';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,8 +17,8 @@ export default function PrincipalChefeSetor({navigation}) {
       }}
     >
       <Tab.Screen
-        name="OrdemServiços"
-        component={OrdemServicos}
+        name="Salas"
+        component={Salas}
         options={{
           tabBarLabel: 'Notificar Serviço',
           tabBarIcon: ({ color, size }) => (

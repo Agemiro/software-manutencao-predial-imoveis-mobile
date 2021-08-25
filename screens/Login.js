@@ -17,10 +17,9 @@ export default function Login({navigation}) {
       password: password
     }
     
-    /*usuarioService.login(data)
+    usuarioService.login(data)
     .then((response) => {
-      Principal(data.name);*/
-      let telaCargo = usuarioService.retornaTipoCargo(data.email);
+      let telaCargo = usuarioService.retornaTipoCargo(response.data.job);
       if(telaCargo != null){
         navigation.reset({
           index: 0,
@@ -29,15 +28,11 @@ export default function Login({navigation}) {
       }else{
         Alert.alert("Usuário não existe")
       }
-   /* })
+    })
     .catch((error) => {
       Alert.alert("Usuário não existe")
-    })*/
+    })
   }
-
-  /*const cadastrar = () => {
-    navigation.navigate("CadastroUsuario")
-  }*/
 
   return (
     <View style={[styles.container, specificStyle.specificContainer]}>
@@ -54,19 +49,20 @@ export default function Login({navigation}) {
             onChangeText={value => setPassword(value)}
             secureTextEntry={true}
             />
-
-            <Button
-              icon={
-                <Icon
-                  name="check"
-                  size={15}
-                  color="white"
-                />
-              }
-              title="Entrar"
-              buttonStyle={specificStyle.button}
-              onPress={() => entrar()}
-            />
+            <View>
+              <Button
+                icon={
+                  <Icon
+                    name="check"
+                    size={15}
+                    color="white"
+                  />
+                }
+                title="Entrar"
+                buttonStyle={specificStyle.button}
+                onPress={() => entrar()}
+              />
+            </View>
     </View>
  
   );
@@ -84,10 +80,10 @@ const specificStyle = StyleSheet.create({
     padding: 10
   },
   button: {
-      marginTop: '10%',
-      width: '100%',
-      borderRadius: 5,
-      backgroundColor: "#008000",
-      textAlign: 'center'
+    justifyContent: 'center',
+    marginTop: '10%',
+    width: '100%',
+    borderRadius: 5,
+    backgroundColor: "#008000",
   }
 })

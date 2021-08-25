@@ -3,9 +3,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Perfil from './Perfil';
-import Produtos from './Produtos';
+import NotificacoesGerente from './NotificacoesGerente';
 import OrdemServicos from './OrdemServicos';
-import CadastrarDoGerente from './CadastrarDoGerente';
+import Estoque from './Estoque';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,23 +20,32 @@ export default function PrincipalGerente({navigation}) {
    
     >
       <Tab.Screen
-        name="OrdemServiços"
-        component={OrdemServicos}
+        name="NotificacoesGerente"
+        component={NotificacoesGerente}
         options={{
-          tabBarLabel: 'Ordem de Serviços',
+          tabBarLabel: 'Notificações',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="human-greeting" color={color} size={size} />
+            <MaterialCommunityIcons name="bell" color={color} size={size} />
           ),
         }}
       />
-      
       <Tab.Screen
-        name="CadastrarDoGerente"
-        component={CadastrarDoGerente}
+        name="Servicos"
+        component={OrdemServicos}
         options={{
-          tabBarLabel: 'Cadastrar',
+          tabBarLabel: 'Serviços',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="plus-circle" color={color} size={size} />
+            <MaterialCommunityIcons name="clipboard" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Estoque"
+        component={Estoque}
+        options={{
+          tabBarLabel: 'Estoque',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="database" color={color} size={size} />
           ),
         }}
       />

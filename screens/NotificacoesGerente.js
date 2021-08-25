@@ -1,68 +1,63 @@
 import * as React from 'react';
 import { Component } from "react";
-import { Alert } from 'react-native';
 import { View, Text } from "react-native";
 import { FlatList, StyleSheet } from "react-native";
-import { receberServico } from "./CadastroServico"
+import { receberServico } from "./CadastroServico";
+import servicoService from '../services/ServicoService';
 
-const servicos = [
-    {_id:  1, nome: "Servico 1"},
-    {_id:  2, nome: "Servico 1"},
-    {_id:  3, nome: "Servico 1"},
-    {_id:  4, nome: "Servico 1"},
-    {_id:  5, nome: "Servico 1"},
-    {_id:  6, nome: "Servico 1"},
-    {_id:  7, nome: "Servico 1"},
-    {_id:  8, nome: "Servico 1"},
-    {_id:  9, nome: "Servico 1"},
-    {_id:  10, nome: "Servico 1"},
-    {_id:  11, nome: "Servico 1"},
-];
+let notificacoes = null;
+
+const getNotificacoes = async () => { 
+    servicoService.obterNotificacoes()
+    .then((response) => {
+        notificacoes = response.data; 
+    })
+    .catch((error) => {
+        console.log(error);     
+    });
+}
+getNotificacoes();
 
 class ListItem extends Component {
     render(){
         const {item} = this.props;
         return (
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center', paddingLeft:20, paddingBottom: 15}}>
-                <Text style={{fontSize:20}} onPress={this.props.notificar}>{item.nome}</Text>
+                <Text style={{fontSize:20}} onPress={this.props.notificar}>{item.title}</Text>
             </View>
         );
     }
-} 
+}
 
 class BasicFlatList extends Component {
     state = {
-        servicos
+        notificacoes
       }
     
     onPressAction = (item) => {
-        if(false) {
-            Alert.alert("Você escolheu " + item.nome + ". Adicione o Prestador")
-            this.props.navigation.navigate("Prestador")
-        } else {
-            this.props.navigation.navigate("Estoque")
-        }
+        receberServico(item);
+        this.props.navigation.navigate("Cadastro Servico")
     }
   
     render() {
       return(
         <View style={styles.container}>
             <FlatList
-                data={this.state.servicos}
+                data={this.state.notificacoes}
                 renderItem={({item, index}) => (
                     <ListItem 
                         item={item}
                         notificar={() => this.onPressAction(item)}
                     />
                 )}
-                keyExtractor={(item) => item._id.toString()}
+                keyExtractor={(item) => item.id.toString()}
             />
             </View>
       );
     }
 }
 
-export default function OrdemServicos({navigation}) {
+export default function Notificação({navigation}) {
     return (
         <BasicFlatList navigation={navigation}></BasicFlatList>
     );

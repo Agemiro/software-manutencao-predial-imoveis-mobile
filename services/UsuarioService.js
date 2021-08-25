@@ -1,8 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import axios from "axios";
+import Config from "../util/Config"
 
 class UsuarioService{
     
-    /*async cadastrar(data){
+    async cadastrar(data){
         return axios({
             url: Config.API_URL + "user",
             method: "POST",
@@ -10,7 +12,7 @@ class UsuarioService{
             data: data,
             headers: Config.HEADER_REQUEST
         }).then((response) => {
-            return Promise.resolve(response)
+            return Promise.resolve(response).data
         }).catch((error) => {
             return Promise.reject(error)
         })
@@ -24,29 +26,25 @@ class UsuarioService{
             data: data,
             headers: Config.HEADER_REQUEST
         }).then((response) => {
+            this.setUser(response.data);
             return Promise.resolve(response)
         }).catch((error) => {
             return Promise.reject(error)
         })
-    }*/
-
-    retornaTipoCargo(data){
-        this.usuarioLogado(data);
-        if(data === "A"){
-            return "Principal ADM";
-        }else if(data === "C"){
-            return "Principal Chefe de Setor";
-        }
-        else if(data === "P"){
-            return "Principal Prestador";
-        }
-        else if(data === "G"){
-            return "Principal Gerente";
-        }
     }
 
-    usuarioLogado(data){
-        return data;
+    retornaTipoCargo(cargo){
+        if(cargo === "Administrador"){
+            return "Principal ADM";
+        }else if(cargo === "Chefe de Setor"){
+            return "Principal Chefe de Setor";
+        }
+        else if(cargo === "Prestador"){
+            return "Principal Prestador";
+        }
+        else if(cargo === "Gerente"){
+            return "Principal Gerente";
+        }
     }
 
     async getUser() {

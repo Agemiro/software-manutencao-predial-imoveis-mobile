@@ -1,22 +1,20 @@
 import * as React from 'react';
 import { Component } from "react";
-import { Alert } from 'react-native';
 import { View, Text } from "react-native";
 import { FlatList, StyleSheet } from "react-native";
-import { receberServico } from "./CadastroServico"
 
-const servicos = [
-    {_id:  1, nome: "Servico 1"},
-    {_id:  2, nome: "Servico 1"},
-    {_id:  3, nome: "Servico 1"},
-    {_id:  4, nome: "Servico 1"},
-    {_id:  5, nome: "Servico 1"},
-    {_id:  6, nome: "Servico 1"},
-    {_id:  7, nome: "Servico 1"},
-    {_id:  8, nome: "Servico 1"},
-    {_id:  9, nome: "Servico 1"},
-    {_id:  10, nome: "Servico 1"},
-    {_id:  11, nome: "Servico 1"},
+const prestadores = [
+    {_id:  1, nome: "Prestador 1"},
+    {_id:  2, nome: "Prestador 1"},
+    {_id:  3, nome: "Prestador 1"},
+    {_id:  4, nome: "Prestador 1"},
+    {_id:  5, nome: "Prestador 1"},
+    {_id:  6, nome: "Prestador 1"},
+    {_id:  7, nome: "Prestador 1"},
+    {_id:  8, nome: "Prestador 1"},
+    {_id:  9, nome: "Prestador 1"},
+    {_id:  10, nome: "Prestador 1"},
+    {_id:  11, nome: "Prestador 1"},
 ];
 
 class ListItem extends Component {
@@ -32,23 +30,18 @@ class ListItem extends Component {
 
 class BasicFlatList extends Component {
     state = {
-        servicos
+        prestadores
       }
     
     onPressAction = (item) => {
-        if(false) {
-            Alert.alert("Você escolheu " + item.nome + ". Adicione o Prestador")
-            this.props.navigation.navigate("Prestador")
-        } else {
-            this.props.navigation.navigate("Estoque")
-        }
+        alert("Prestador " + item.nome + " foi acionado!")
     }
   
     render() {
       return(
         <View style={styles.container}>
             <FlatList
-                data={this.state.servicos}
+                data={this.state.prestadores}
                 renderItem={({item, index}) => (
                     <ListItem 
                         item={item}
@@ -62,7 +55,7 @@ class BasicFlatList extends Component {
     }
 }
 
-export default function OrdemServicos({navigation}) {
+export default function Prestador({navigation}) {
     return (
         <BasicFlatList navigation={navigation}></BasicFlatList>
     );

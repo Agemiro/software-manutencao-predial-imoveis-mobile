@@ -13,6 +13,8 @@ export default function CadastroProduto({navigation}) {
   const [errorNome, setErrorNome] = useState(null)
   const [preco, setPreco] = useState(null)
   const [errorPreco, setErrorPreco] = useState(null)
+  const [quantidade, setQuantidade] = useState(null)
+  const [errorQuantidade, setErrorQuantidade] = useState(null)
   const [isLoading, setLoading] = useState(false)
 
   const validar = () => {
@@ -29,6 +31,10 @@ export default function CadastroProduto({navigation}) {
         setErrorPreco("Preencha o valor do produto!")
         error = true
     }
+
+    if (quantidade == null || quantidade < 0) {
+      quantidade = 0;
+    }
     return !error //Retorna false
   }
 
@@ -38,7 +44,8 @@ export default function CadastroProduto({navigation}) {
         
         let data = {
           name: nome,
-          price: preco
+          price: preco,
+          amount: quantidade
         }  
         Alert.alert("Produto " + data.name + " cadastrado! ")
         navigation.reset({
@@ -66,6 +73,12 @@ export default function CadastroProduto({navigation}) {
                 keyboardType="number-pad"
                 onChangeText={value => setPreco(value)}
                 errorMessage={errorPreco}
+            />
+            <Input
+                placeholder="Informe a quantidade"
+                keyboardType="number-pad"
+                onChangeText={value => setQuantidade(value)}
+                errorMessage={errorQuantidade}
             />
     
     { isLoading && 

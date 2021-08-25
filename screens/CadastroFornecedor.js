@@ -7,6 +7,7 @@ import { TextInputMask } from 'react-native-masked-text';
 import { Button, CheckBox, Input, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
+import fornecedorService from '../services/FornecedorService';
 
 export default function CadastroFornecedor({navigation}) {
     
@@ -40,10 +41,20 @@ export default function CadastroFornecedor({navigation}) {
                 name: nome,
                 cnpj: cnpj
             }  
-            Alert.alert("Fornecedor " + data.name + " cadastrado com sucesso! ")
-            navigation.reset({
-            index: 0,
-            routes: [{name: "Principal"}]
+
+            fornecedorService.cadastrar(data)
+            .then((response) => {
+                const titulo = (response.data.cnpj) ? "Fornecedor " + response.data.name + " cadastrado com sucesso! " : "Erro ao cadastrar a sala"
+                alert(titulo) 
+                navigation.reset({
+                index: 0,
+                routes: [{name: "Principal ADM"}]
+                })
+            })
+            .catch((error) => {
+                // showDialog("Erro","Houve um erro inesperado", "ERRO")
+                console.log(error); 
+                throw "Nao foi possivel persistir as informacoes da sala";    
             })
             setLoading(false)
         }

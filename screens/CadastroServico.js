@@ -3,12 +3,15 @@ import { Alert } from 'react-native';
 import { Platform } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native';
 import { StyleSheet, View } from 'react-native';
-import { Button, CheckBox, Input, Text } from 'react-native-elements';
+import { Button, TextInput, Input, Text } from 'react-native-elements';
 import { TextInputMask } from 'react-native-masked-text';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
+import usuarioService from '../services/UsuarioService'
 
-export default function CadastroImovel({navigation}) {
+let servico = null;
+
+export default function CadastroServico({navigation}) {
 
   const [titulo, setTitulo] = useState(null)
   const [errorTitulo, setErrorTitulo] = useState(null)
@@ -59,7 +62,7 @@ export default function CadastroImovel({navigation}) {
           budget: orcamento,
           term: prazo,
           state: "Iniciado",
-          manager: 1 //id do gerente
+          manager: usuarioService.getUser()
         }  
         Alert.alert("Serviço cadastrado: "+data.title)
         // navigation.reset({
@@ -76,16 +79,21 @@ export default function CadastroImovel({navigation}) {
     style={[styles.container, specificStyle.specificContainer]}>
 
         <ScrollView style={{width: "100%"}}>
-            <Text h4>Cadastrar Serviço</Text>
+            <Text h4 style={{paddingBottom:25}}>Cadastrar Serviço</Text>
+                <Text h4 style={{paddingBottom:5, color:'#000080'}}>Nome do Imóvel: {servico.room.immobile.name}</Text>
+                <Text h4 style={{paddingBottom:30, color:'#000080'}}>Endereço do Imóvel: {servico.room.immobile.address}</Text>
             <Input
-                placeholder="Digite o título"
-                onChangeText={value => setTitulo(value)}
-                errorMessage={errorTitulo}
+              style={styles.input}
+              value={servico.title}
+              placeholder="Digite o título"
+              onChangeText={value => setTitulo(value)}
+              errorMessage={errorTitulo}
             />
             <Input
-                placeholder="Descrição do servico"
-                onChangeText={value => setDescricao(value)}
-                errorMessage={errorDescricao}
+              value={servico.description}
+              placeholder="Descrição do servico"
+              onChangeText={value => setDescricao(value)}
+              errorMessage={errorDescricao}
             />
             <Input
                 placeholder="Digite orçamento do serviço"
@@ -144,3 +152,8 @@ const specificStyle = StyleSheet.create({
     backgroundColor: "#008000"
   }
 })
+
+export function receberServico(item){
+  servico = item;
+  console.log(servico);
+}
