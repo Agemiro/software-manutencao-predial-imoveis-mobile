@@ -7,15 +7,27 @@ import { Button, TextInput, Input, Text } from 'react-native-elements';
 import { TextInputMask } from 'react-native-masked-text';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
-import usuarioService from '../services/UsuarioService'
+import usuarioService from '../services/UsuarioService';
+import servicoService from '../services/ServicoService';
 
 let servico = null;
+let user;
+
+const getUser = () => {
+  usuarioService.getUser()
+  .then((response) => {
+    user = response;
+  })
+  .catch((error) => {
+    console.log(error);     
+});
+}
 
 export default function CadastroServico({navigation}) {
-
-  const [titulo, setTitulo] = useState(null)
+  getUser();
+  const [titulo, setTitulo] = useState(servico.title)
   const [errorTitulo, setErrorTitulo] = useState(null)
-  const [descricao, setDescricao] = useState(null)
+  const [descricao, setDescricao] = useState(servico.description)
   const [errorDescricao, setErrorDescricao] = useState(null)
   const [orcamento, setOrcamento] = useState(null)
   const [errorOrcamento, setErrorOrcamento] = useState(null)
@@ -55,20 +67,28 @@ export default function CadastroServico({navigation}) {
   const salvar = () => {
       if (validar()){
         setLoading(true)
-        
         let data = {
+          id: servico.id,
+          room: servico.room,
           title: titulo,
           description: descricao,
           budget: orcamento,
           term: prazo,
-          state: "Iniciado",
-          manager: usuarioService.getUser()
+          state: "Executando",
+          manager: user
         }  
-        Alert.alert("Serviço cadastrado: "+data.title)
-        // navigation.reset({
-        //   index: 0,
-        //   routes: [{name: "Principal"}]
-        // })
+        servicoService.cadastrar(data)
+        .then((response) => {
+            const titulo = (response.data.id) ? "Serviço cadastro com sucesso" : "Erro ao cadastrar"
+            alert(titulo)  
+            navigation.reset({
+                index: 0,
+                routes: [{name: "Principal Gerente"}]
+            })        
+        })
+        .catch((error) => {
+            console.log(error);     
+        })
         setLoading(false)
       }
   }
@@ -80,17 +100,18 @@ export default function CadastroServico({navigation}) {
 
         <ScrollView style={{width: "100%"}}>
             <Text h4 style={{paddingBottom:25}}>Cadastrar Serviço</Text>
-                <Text h4 style={{paddingBottom:5, color:'#000080'}}>Nome do Imóvel: {servico.room.immobile.name}</Text>
-                <Text h4 style={{paddingBottom:30, color:'#000080'}}>Endereço do Imóvel: {servico.room.immobile.address}</Text>
+            <Text h4 style={{paddingBottom:5, color:'#000080'}}>Nome do Imóvel: {servico.room.immobile.name}</Text>
+            <Text h4 style={{paddingBottom:30, color:'#000080'}}>Endereço do Imóvel: {servico.room.immobile.address}</Text>
+            <Text h4 style={{paddingBottom:30, color:'#000080'}}>Andar da Sala: {servico.room.floor}</Text>
             <Input
               style={styles.input}
-              value={servico.title}
+              value={titulo}
               placeholder="Digite o título"
               onChangeText={value => setTitulo(value)}
               errorMessage={errorTitulo}
             />
             <Input
-              value={servico.description}
+              value={descricao}
               placeholder="Descrição do servico"
               onChangeText={value => setDescricao(value)}
               errorMessage={errorDescricao}
@@ -155,5 +176,4 @@ const specificStyle = StyleSheet.create({
 
 export function receberServico(item){
   servico = item;
-  console.log(servico);
 }

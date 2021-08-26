@@ -15,9 +15,11 @@ import Notifica from './screens/Notifica';
 import CadastroEmpresa from './screens/CadastroEmpresa';
 import CadastroFornecedor from './screens/CadastroFornecedor';
 import CadastroOrdemServico from './screens/CadastroOrdemServico';
-import OrdemServicos from './screens/OrdemServicos';
+import OrdemServicos from './screens/OrdemServicosGerente';
 import Prestador from './screens/Prestadores';
 import Estoque from './screens/Estoque';
+import EstoquePrestador from './screens/EstoquePrestador';
+import Servico from './screens/Servico';
 
 const Stack = createStackNavigator();
 
@@ -39,7 +41,8 @@ function MyStack() {
       <Stack.Screen name="OrdemServicos" component={OrdemServicos} />
       <Stack.Screen name="Prestador" component={Prestador} />
       <Stack.Screen name="Estoque" component={Estoque} />
-      {/* <Stack.Screen name="Material da Sala" component={ProdutoSala} /> */}
+      <Stack.Screen name="EstoquePrestador" component={EstoquePrestador} />
+      <Stack.Screen name="Servico" component={Servico} />
       <Stack.Screen name="Cadastro Fornecedor" component={CadastroFornecedor} />
       <Stack.Screen name="Cadastro Ordem de Servico" component={CadastroOrdemServico} />
 

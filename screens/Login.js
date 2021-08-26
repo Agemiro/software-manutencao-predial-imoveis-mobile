@@ -83,7 +83,7 @@ const specificStyle = StyleSheet.create({
     justifyContent: 'center',
     marginTop: '10%',
     width: '100%',
-    borderRadius: 5,
+    borderRadius: 10,
     backgroundColor: "#008000",
   }
 })

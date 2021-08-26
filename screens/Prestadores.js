@@ -2,27 +2,17 @@ import * as React from 'react';
 import { Component } from "react";
 import { View, Text } from "react-native";
 import { FlatList, StyleSheet } from "react-native";
+import prestadorService from "../services/PrestadorService"
+import servicoService from '../services/ServicoService';
 
-const prestadores = [
-    {_id:  1, nome: "Prestador 1"},
-    {_id:  2, nome: "Prestador 1"},
-    {_id:  3, nome: "Prestador 1"},
-    {_id:  4, nome: "Prestador 1"},
-    {_id:  5, nome: "Prestador 1"},
-    {_id:  6, nome: "Prestador 1"},
-    {_id:  7, nome: "Prestador 1"},
-    {_id:  8, nome: "Prestador 1"},
-    {_id:  9, nome: "Prestador 1"},
-    {_id:  10, nome: "Prestador 1"},
-    {_id:  11, nome: "Prestador 1"},
-];
+let servico = null;
 
 class ListItem extends Component {
     render(){
         const {item} = this.props;
         return (
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center', paddingLeft:20, paddingBottom: 15}}>
-                <Text style={{fontSize:20}} onPress={this.props.notificar}>{item.nome}</Text>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center', paddingLeft:20, marginTop: 25, backgroundColor:"#000080"}}>
+                <Text style={{fontSize:20, color:"#fff"}} onPress={this.props.notificar}>{item.name}</Text>
             </View>
         );
     }
@@ -30,16 +20,37 @@ class ListItem extends Component {
 
 class BasicFlatList extends Component {
     state = {
-        prestadores
-      }
+        prestadores: this.getPrestadores(),
+    }
     
     onPressAction = (item) => {
-        alert("Prestador " + item.nome + " foi acionado!")
+        servico.providers.push(item);
+        servicoService.cadastrar(servico)
+        .then((response) => {
+            const titulo = (response.data.id) ? "Prestador " + item.name + " foi acionado!" : "Erro ao acionar o prestador"
+            alert(titulo)  
+        })
+        .catch((error) => {
+            console.log(error);     
+        })
+    }
+
+    getPrestadores() { 
+        prestadorService.obterAll()
+        .then((response) => {
+            this.setState({
+                prestadores: response.data,
+            })
+        })
+        .catch((error) => {
+            console.log(error);     
+        });
     }
   
     render() {
       return(
         <View style={styles.container}>
+            <Text style={{fontSize:20, paddingLeft:80, paddingBottom:20}}>Prestadores Disponíveis</Text>
             <FlatList
                 data={this.state.prestadores}
                 renderItem={({item, index}) => (
@@ -48,7 +59,7 @@ class BasicFlatList extends Component {
                         notificar={() => this.onPressAction(item)}
                     />
                 )}
-                keyExtractor={(item) => item._id.toString()}
+                keyExtractor={(item) => item.cpf}
             />
             </View>
       );
@@ -59,6 +70,10 @@ export default function Prestador({navigation}) {
     return (
         <BasicFlatList navigation={navigation}></BasicFlatList>
     );
+}
+
+export function setServico(serv){
+    servico = serv;
 }
 
 const styles = StyleSheet.create({

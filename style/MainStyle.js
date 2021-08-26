@@ -3,7 +3,7 @@ const styles = StyleSheet.create({
     button: {
       marginTop: '10%',
       width: '100%',
-      borderRadius: 5,
+      borderRadius: 10,
       backgroundColor: "#008000"
     },  
     cancelButton: {

@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, FlatList, StyleSheet, Button } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { KeyboardAvoidingView } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import * as React from 'react';
+import { Text, View, FlatList, StyleSheet } from 'react-native';
 import NumericInput from 'react-native-numeric-input';
 import produtoService from '../services/ProdutoService';
 
@@ -19,6 +16,7 @@ class ListItem extends React.Component {
                     <NumericInput 
                         value={item.amount}
                         minValue={0}
+                        maxValue={item.amount}
                         onChange={value => this.props.setItem(value)} 
                         textColor='#012289' 
                         iconStyle={{ color: 'white' }} 
@@ -60,7 +58,7 @@ class Estoque extends React.Component {
             console.log(error);     
         });
     };
-
+    
     cadastrarProduto(){
         this.props.navigation.navigate("Cadastro Produto")
     }
@@ -68,6 +66,7 @@ class Estoque extends React.Component {
     render() {
         return (
             <View style={styles.container}>
+            <Text style={{fontSize:20, paddingLeft:10, paddingBottom:20}}>Escolha o produto e subtraia a quantidade</Text>
             <FlatList
                 data={this.state.estoque}
                 renderItem={({item, index}) => (
@@ -78,18 +77,6 @@ class Estoque extends React.Component {
                 )}
                 keyExtractor={(item) => item.id.toString()}
             />
-            <Button
-            icon={
-              <Icon
-                name="shopping-bag"
-                size={15}
-                color="white"
-              />
-            }
-            title=" Cadastrar produto"
-            buttonStyle={styles.button}
-            onPress={() => this.cadastrarProduto()}
-          />
             </View>
         );
     }
@@ -100,6 +87,7 @@ export default function Produtos({navigation}) {
         <Estoque navigation={navigation}></Estoque>
     )
 }
+
 const styles = StyleSheet.create({
 container: {
     flex: 1,

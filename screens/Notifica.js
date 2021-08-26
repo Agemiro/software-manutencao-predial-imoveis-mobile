@@ -42,6 +42,7 @@ export default function Notifica({navigation}) {
             let data = {
                 title: titulo,
                 description: descricao,
+                state: "Iniciado",
                 room: sala
             }  
             servicoService.cadastrar(data)
@@ -54,7 +55,6 @@ export default function Notifica({navigation}) {
                 })        
             })
             .catch((error) => {
-                setLoading(false)
                 console.log(error);     
             })
             setLoading(false)
@@ -70,6 +70,7 @@ export default function Notifica({navigation}) {
                 <Text h4 style={{paddingBottom:25}}>Notificar Serviço</Text>
                 <Text h4 style={{paddingBottom:5, color:'#000080'}}>Nome do Imóvel: {sala.immobile.name}</Text>
                 <Text h4 style={{paddingBottom:30, color:'#000080'}}>Endereço do Imóvel: {sala.immobile.address}</Text>
+                <Text h4 style={{paddingBottom:30, color:'#000080'}}>Andar da Sala: {sala.floor}</Text>
                 <Input 
                     placeholder="Digite o título"
                     onChangeText={value => setTitulo(value)}
@@ -87,7 +88,7 @@ export default function Notifica({navigation}) {
 
         { !isLoading && 
         <Button
-            title="Salvar"
+            title="Enviar"
             buttonStyle={specificStyle.button }
             onPress={() => salvar()}
         />
@@ -113,5 +114,4 @@ export default function Notifica({navigation}) {
 
 export function receberSala(item){
     sala = item;
-    console.log(sala);
 }

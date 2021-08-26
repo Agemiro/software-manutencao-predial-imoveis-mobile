@@ -5,41 +5,13 @@ import { FlatList, StyleSheet } from "react-native";
 import { receberSala } from "./Notifica"
 import salaService from '../services/SalaService';
 
-// const salas = [
-//     {_id:  1, nome: "Salas 1"},
-//     {_id:  2, nome: "Salas 1"},
-//     {_id:  3, nome: "Salas 1"},
-//     {_id:  4, nome: "Salas 1"},
-//     {_id:  5, nome: "Salas 1"},
-//     {_id:  6, nome: "Salas 1"},
-//     {_id:  7, nome: "Salas 1"},
-//     {_id:  8, nome: "Salas 1"},
-//     {_id:  9, nome: "Salas 1"},
-//     {_id:  10, nome: "Salas 1"},
-//     {_id:  11, nome: "Salas 1"},
-// ];
-
-let salas = null;
-
-const getSalas = async () => { 
-    salaService.obterSalas()
-    .then((response) => {
-        salas = response.data;  
-    })
-    .catch((error) => {
-        console.log(error);     
-    });
-}
-getSalas();
-
 class ListItem extends Component {
     render(){
         const {item} = this.props;
-        // console.log(item);
         return (
-            <View style={{flexDirection: 'row', alignItems:'center', paddingLeft:20, paddingBottom: 8}}>
-                <Text style={{fontSize:20}} onPress={this.props.notificar}>Imóvel - {item.immobile.name}</Text>
-                <Text style={{fontSize:20}} onPress={this.props.notificar}>, Sala - {item.description}</Text>
+            <View style={{paddingLeft:20, marginTop: 25, backgroundColor:"#000080"}}>
+                <Text style={{fontSize:20, color:"#fff"}} onPress={this.props.notificar}>IMÓVEL: {item.immobile.name}</Text>
+                <Text style={{fontSize:20, color:"#fff"}} onPress={this.props.notificar}>SALA: {item.description}</Text>
             </View>
         );
     }
@@ -47,12 +19,24 @@ class ListItem extends Component {
 
 class BasicFlatList extends Component {
     state = {
-        salas
-      }
+        salas: this.getSalas(),
+    }
     
     onPressAction = (item) => {
         receberSala(item);
         this.props.navigation.navigate("Notifica")
+    }
+
+    getSalas() { 
+        salaService.obterSalas()
+        .then((response) => {
+            this.setState({
+                salas: response.data,
+            })
+        })
+        .catch((error) => {
+            console.log(error);     
+        });
     }
   
     render() {

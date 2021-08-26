@@ -35,11 +35,11 @@ export default function Cadastro({navigation}) {
     setErrorCpf(null)
     setErrorSenha(null)
     
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    if (!re.test(String(email).toLowerCase())){
-      setErrorEmail("Preencha seu e-mail corretamente")
-      error = true
-    }
+    // const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    // if (!re.test(String(email).toLowerCase())){
+    //   setErrorEmail("Preencha seu e-mail corretamente")
+    //   error = true
+    // }
     // if (!cpfField.isValid()){
     //   setErrorCpf("Preencha seu CPF corretamente")
     //   error = true
@@ -57,8 +57,7 @@ export default function Cadastro({navigation}) {
 
   const salvar = () => {
       if (validar()){
-        setLoading(true)
-        console.log(selectedValue);
+        setLoading(true);
         let data = {
           cpf: cpf,
           name: nome,
@@ -71,7 +70,7 @@ export default function Cadastro({navigation}) {
         usuarioService.cadastrar(data)
         .then((response) => {
           const titulo = (response.data.cpf) ? "Cadastro realizado com sucesso" : "Erro ao cadastrar"
-          alert(titulo, response.data.mensagem)  
+          alert(titulo)  
           navigation.reset({
             index: 0,
             routes: [{name: "Principal ADM"}]

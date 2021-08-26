@@ -4,7 +4,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import Perfil from './Perfil';
 import Produtos from './Produtos';
-import OrdemServicos from './OrdemServicos';
+import OrdemServicos from './OrdemServicosPrestador';
 
 const Tab = createBottomTabNavigator();
 

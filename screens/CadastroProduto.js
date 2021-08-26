@@ -6,6 +6,7 @@ import { StyleSheet, View } from 'react-native';
 import { Button, CheckBox, Input, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
+import produtoService from '../services/ProdutoService';
 
 export default function CadastroProduto({navigation}) {
 
@@ -47,10 +48,17 @@ export default function CadastroProduto({navigation}) {
           price: preco,
           amount: quantidade
         }  
-        Alert.alert("Produto " + data.name + " cadastrado! ")
-        navigation.reset({
-          index: 0,
-          routes: [{name: "Principal"}]
+        produtoService.cadastrar(data)
+        .then((response) => {
+            const titulo = (response.data.id) ? "Produto " + data.name + " cadastrado! " : "Erro ao cadastrar"
+            alert(titulo)  
+            navigation.reset({
+                index: 0,
+                routes: [{name: "Principal Gerente"}]
+            })        
+        })
+        .catch((error) => {
+          console.log(error);     
         })
         setLoading(false)
       }

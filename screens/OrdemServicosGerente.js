@@ -1,36 +1,67 @@
 import * as React from 'react';
 import { Component } from "react";
+import { Alert } from 'react-native';
 import { View, Text } from "react-native";
 import { FlatList, StyleSheet } from "react-native";
 import { receberServico } from "./CadastroServico";
 import servicoService from '../services/ServicoService';
+import usuarioService from '../services/UsuarioService';
+import { setServico } from "./Prestadores";
 
 class ListItem extends Component {
     render(){
         const {item} = this.props;
         return (
             <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems:'center', paddingLeft:20, marginTop: 25, backgroundColor:"#000080"}}>
-                <Text style={{fontSize:20, color:"#fff"}} onPress={this.props.notificar}>{item.title}</Text>
+                <Text style={{fontSize:20, color:"#fff"}} onPress={this.props.notificar}>{item.title} - {item.state}</Text>
             </View>
         );
     }
-}
+} 
 
 class BasicFlatList extends Component {
     state = {
-        notificacoes: this.getNotificacoes(),
+        servicos: this.getServicos(),
+        user: null,
     }
     
     onPressAction = (item) => {
-        receberServico(item);
-        this.props.navigation.navigate("Cadastro Servico")
+        if(item.state == "Executando") {
+            Alert.alert("Você escolheu " + item.title + ". Adicione o Prestador")
+            setServico(item);
+            this.props.navigation.navigate("Prestador")
+        }
+
     }
-    
-    getNotificacoes() { 
-        servicoService.obterNotificacoes()
+  
+    async getUser() {
+        await usuarioService.getUser()
         .then((response) => {
             this.setState({
-                notificacoes: response.data,
+                user: response,
+            })
+        })
+        .catch((error) => {
+          console.log(error);     
+      });
+    } 
+    
+    async getServicos() { 
+        await this.getUser();
+        servicoService.obterAll()
+        .then((response) => {
+            let serv = [];
+            for (let index = 0; index < response.data.length; index++) {
+                const element = response.data[index];
+                if(element.manager != null) {
+                    if(this.state.user.cpf == element.manager.cpf){
+                        serv.push(element);
+                    }
+                }
+            }
+            console.log("servicos: " + serv);
+            this.setState({
+                servicos: serv,
             })
         })
         .catch((error) => {
@@ -41,8 +72,9 @@ class BasicFlatList extends Component {
     render() {
       return(
         <View style={styles.container}>
+            <Text style={{fontSize:20, paddingLeft:120, paddingBottom:20}}>Serviços Iniciados</Text>
             <FlatList
-                data={this.state.notificacoes}
+                data={this.state.servicos}
                 renderItem={({item, index}) => (
                     <ListItem 
                         item={item}
@@ -56,7 +88,7 @@ class BasicFlatList extends Component {
     }
 }
 
-export default function Notificação({navigation}) {
+export default function OrdemServicos({navigation}) {
     return (
         <BasicFlatList navigation={navigation}></BasicFlatList>
     );

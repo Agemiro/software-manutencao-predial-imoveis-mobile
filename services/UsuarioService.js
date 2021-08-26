@@ -12,7 +12,7 @@ class UsuarioService{
             data: data,
             headers: Config.HEADER_REQUEST
         }).then((response) => {
-            return Promise.resolve(response).data
+            return Promise.resolve(response)
         }).catch((error) => {
             return Promise.reject(error)
         })
