@@ -1,5 +1,5 @@
 # ManuPredSoft
-  Sistema de auxilio ao gerenciamento da manutenção de imóveis com o controle de estoque, o gerenciamento de ordens de serviço, o estabelecimento de prazos das tarefas.
+  Sistema de auxilio ao gerenciamento da manutenção de imóveis com o controle de estoque, o gerenciamento de ordens de serviço, o estabelecimento de prazos das tarefas, etc.
   
 ## Descrição do Projeto
 Este software de Manutenção Predial ajuda os usuários a gerenciar
