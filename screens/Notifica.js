@@ -42,7 +42,7 @@ export default function Notifica({navigation}) {
             let data = {
                 title: titulo,
                 description: descricao,
-                state: "Iniciado",
+                state: "INICIADO",
                 room: sala
             }  
             servicoService.cadastrar(data)

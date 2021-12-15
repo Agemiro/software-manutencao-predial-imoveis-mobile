@@ -74,7 +74,7 @@ export default function CadastroServico({navigation}) {
           description: descricao,
           budget: orcamento,
           term: prazo,
-          state: "Executando",
+          state: "EXECUTANDO",
           manager: user
         }  
         servicoService.cadastrar(data)
@@ -128,7 +128,7 @@ export default function CadastroServico({navigation}) {
                 type= {"datetime"}
                 value={prazo}
                 options={{
-                  format: 'DD/MM/YYYY'
+                  format: 'YYYY-MM-DD'
                 }} 
                 onChangeText={value => {
                     setPrazo(value)

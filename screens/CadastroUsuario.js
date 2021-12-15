@@ -23,7 +23,6 @@ export default function Cadastro({navigation}) {
   const [errorTelefone, setErrorTelefone] = useState(null)
   const [errorSenha, setErrorSenha] = useState(null)
   const [isLoading, setLoading] = useState(false)
-
   const [selectedValue, setSelectedValue] = useState("Gerente");
 
   let cpfField = null
