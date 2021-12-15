@@ -3,7 +3,7 @@ import { Text, View, FlatList, StyleSheet, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { KeyboardAvoidingView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import NumericInput from 'react-native-numeric-input';
+import NumericInput from 'react-numeric-input';
 import produtoService from '../services/ProdutoService';
 
 class ListItem extends React.Component {
@@ -16,7 +16,7 @@ class ListItem extends React.Component {
                     <Text style={{fontSize:17}}>{item.name}</Text>
                 </View>
                 <View style={{flexDirection:'row', flex:1,alignItems:'center', paddingRight:20}}>
-                    <NumericInput 
+                    <NumericInput style={{flexDirection: 'row'}}
                         value={item.amount}
                         minValue={0}
                         onChange={value => this.props.setItem(value)} 
