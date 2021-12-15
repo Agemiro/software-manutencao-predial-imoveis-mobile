@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { Platform } from 'react-native';
+import { Platform, View, Picker } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
@@ -16,6 +16,7 @@ export default function CadastroImovel({navigation}) {
   const [endereco, setEndereco] = useState(null)
   const [errorEndereco, setErrorEndereco] = useState(null)
   const [isLoading, setLoading] = useState(false)
+  const [selectedValue, setSelectedValue] = useState("SMALL_SIZE");
 
   const validar = () => {
     let error = false
@@ -40,7 +41,8 @@ export default function CadastroImovel({navigation}) {
         
         let data = {
           name: nome,
-          address: endereco
+          address: endereco,
+          immobileSize: selectedValue
         }  
         imovelService.cadastrar(data)
         .then((response) => {
@@ -80,6 +82,18 @@ export default function CadastroImovel({navigation}) {
                 onChangeText={value => setEndereco(value)}
                 errorMessage={errorEndereco}
             />
+            <View>
+              <Text>   Selecione o Tamanho do Imóvel</Text>
+              <Picker
+                selectedValue={selectedValue}
+                style={{ height: 70, width: 170 }}
+                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+              >
+                <Picker.Item label="Pequeno" value="SMALL_SIZE" />
+                <Picker.Item label="Médio" value="MID_SIZE" />
+                <Picker.Item label="Grande" value="LARGE_SIZE" />
+              </Picker>
+            </View>
     
     { isLoading && 
       <Text>Carregando...</Text>
