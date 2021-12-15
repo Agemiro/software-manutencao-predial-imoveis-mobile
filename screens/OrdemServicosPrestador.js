@@ -53,7 +53,7 @@ class BasicFlatList extends Component {
                 const element = response.data[index];
                 for (let index = 0; index < element.providers.length; index++) {
                     const elemnt = element.providers[index];
-                    if(this.state.user.cpf == elemnt.cpf && element.state == "Executando"){
+                    if(this.state.user.cpf == elemnt.cpf && element.state == "EXECUTANDO"){
                         serv.push(element);
                     }
                 }

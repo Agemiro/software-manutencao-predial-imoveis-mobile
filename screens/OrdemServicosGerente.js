@@ -26,7 +26,7 @@ class BasicFlatList extends Component {
     }
     
     onPressAction = (item) => {
-        if(item.state == "Executando") {
+        if(item.state == "EXECUTANDO") {
             Alert.alert("Você escolheu " + item.title + ". Adicione o Prestador")
             setServico(item);
             this.props.navigation.navigate("Prestador")
