@@ -29,12 +29,7 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.8.0",
     "react-native-vector-icons": "^7.1.0",
-<<<<<<< HEAD
-    "react-native-web": "~0.13.12",
-    "react-numeric-input": "^2.2.3",
-=======
     "react-native-web": "0.17.1",
->>>>>>> f22a618cb76733d477d4c7453857b275545762b8
     "yet": "^0.1.0"
   },
   "devDependencies": {

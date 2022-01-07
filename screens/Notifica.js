@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { Alert } from 'react-native';
 import { Platform } from 'react-native';
 import { KeyboardAvoidingView } from 'react-native';
-import { StyleSheet, View } from 'react-native';
-import { Button, CheckBox, Input, Text } from 'react-native-elements';
-import { TextInputMask } from 'react-native-masked-text';
+import { StyleSheet } from 'react-native';
+import { Button, Input, Text } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../style/MainStyle';
 import servicoService from '../services/ServicoService'

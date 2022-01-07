@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Text, View, FlatList, StyleSheet, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { KeyboardAvoidingView } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
 import NumericInput from 'react-numeric-input';
 import produtoService from '../services/ProdutoService';
 
